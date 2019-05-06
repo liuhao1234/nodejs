@@ -38,7 +38,7 @@ const server = http.createServer((req,res)=>{
     }
 })
 
-server.listen(3000,()=>{
+server.listen(8000,()=>{
     console.log("200,OK")
 })
 
