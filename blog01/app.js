@@ -1,9 +1,16 @@
+const URL = require("url");
+const querystring = require("querystring");
 const handleBlogRouter = require("./src/router/blog");
 const handleUserRouter = require("./src/router/user");
 const serverHandler = (req,res)=>{
     //设置返回格式
     res.setHeader('Content-type','application/json;charset=utf-8') //'text/plain'
-    
+    //处理url
+    const url = URL.parse(req.url);
+    const path = url.pathname;
+    const query = querystring.parse(url.query);
+    req.query = query;
+    req.routePath = path;
     //处理blog路由
     const blogData = handleBlogRouter(req,res);
     if (blogData) {

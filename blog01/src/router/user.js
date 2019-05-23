@@ -1,10 +1,6 @@
-const URL = require("url");
 const handleUserRouter = (req,res)=>{
     const method = req.method;
-    const url = URL.parse(req.url);
-    const path = url.pathname;
-    const query = url.query;
-
+    const path = req.routePath;
     //用户登录
     if (method === "POST" && path === '/api/user/login') {
         return {

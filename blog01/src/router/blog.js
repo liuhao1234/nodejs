@@ -1,10 +1,6 @@
-const URL = require("url");
 const handleBlogRouter = (req,res)=>{
     const method = req.method;
-    const url = URL.parse(req.url);
-    const path = url.pathname;
-    const query = url.query;
-
+    const path = req.routePath;
     //获取博客列表
     if(method === "GET" && path === '/api/blog/list'){
         return {
