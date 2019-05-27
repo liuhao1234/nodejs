@@ -23,13 +23,13 @@ const getList = (author,keyword)=>{
 }
 
 const getDetail = (id)=>{
-    const resData = [{
+    const resData = {
         id: 1,
         title: "标题A",
         content: "详情内容A",
         createTime: 1558841290238,
         author: "lisi"
-    }]
+    }
     return resData;
 }
 
