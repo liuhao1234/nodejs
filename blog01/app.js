@@ -5,6 +5,7 @@ const handleBlogRouter = require("./src/router/blog");
 const handleUserRouter = require("./src/router/user");
 const serverHandler = (req,res)=>{
     //设置返回格式
+    //res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader('Content-type','application/json;charset=utf-8') //'text/plain'
     //处理url
     const url = URL.parse(req.url);
@@ -18,7 +19,9 @@ const serverHandler = (req,res)=>{
         //处理blog路由
         const blogData = handleBlogRouter(req, res);
         if (blogData) {
-            res.end(JSON.stringify(blogData));
+            blogData.then(data=>{
+                res.end(JSON.stringify(data));
+            })
             return
         }
 
@@ -29,6 +32,7 @@ const serverHandler = (req,res)=>{
             return
         }
 
+        //处理404
         res.writeHead("404", { "Content-type": "text/plain" })
         res.write("404 NOT FOUND");
         res.end();

@@ -20,8 +20,9 @@ const handleBlogRouter = (req,res)=>{
         const author = req.query.author||"";
         const keyword = req.query.keyword||"";
         const resData = getList(author,keyword);
-
-        return new SuccessModel(resData);
+        return resData.then(listdata => {
+            return new SuccessModel(resData);
+        })  
     }
 
     //获取博客详情
