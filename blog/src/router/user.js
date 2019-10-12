@@ -1,5 +1,5 @@
 const {
-    loginCheck
+    login
 } = require("../controller/user");
 const {
     SuccessModel,
@@ -14,7 +14,7 @@ const handleUserRouter = (req,res)=>{
     //用户登录
     if (method === "POST" && path === '/api/user/login') {
         const { username, password } = postData;
-        const result = loginCheck(username,password)
+        const result = login(username,password)
         return result.then(data=>{
             if(data){
                 return new SuccessModel("登录成功")
