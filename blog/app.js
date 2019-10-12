@@ -17,18 +17,21 @@ const serverHandler = (req,res)=>{
     getPostData(req).then(postData=>{
         req.body = postData;
         //处理blog路由
-        const blogData = handleBlogRouter(req, res);
-        if (blogData) {
-            blogData.then(data=>{
+        const blogResult = handleBlogRouter(req, res);
+        
+        if (blogResult) {
+            blogResult.then(data=>{
                 res.end(JSON.stringify(data));
             })
             return
         }
 
         //处理user路由
-        const userData = handleUserRouter(req, res);
-        if (userData) {
-            res.end(JSON.stringify(userData));
+        const userResult = handleUserRouter(req, res);
+        if (userResult) {
+            userResult.then(data=>{
+                res.end(JSON.stringify(data));
+            })
             return
         }
 
