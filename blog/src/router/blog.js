@@ -10,6 +10,8 @@ const {
     ErrorModel 
 } = require("../model/resModel");
 
+
+
 const handleBlogRouter = (req,res)=>{
     const method = req.method;
     const path = req.routePath;
@@ -17,10 +19,11 @@ const handleBlogRouter = (req,res)=>{
     const postData = req.body;
     //获取博客列表
     if(method === "GET" && path === '/api/blog/list'){
-        const author = req.query.author||"";
+        const author = req.session.username;
         const keyword = req.query.keyword||"";
         // console.log("/api/blog/list",author,keyword)
         const result = getList(author,keyword);
+
         return result.then(listdata => {
             return new SuccessModel(listdata);
         })  
@@ -36,7 +39,8 @@ const handleBlogRouter = (req,res)=>{
 
     //新建一篇博客
     if (method === "POST" && path === '/api/blog/new') {
-        const result = newBlog(postData);
+        const author = req.session.username;
+        const result = newBlog(postData,author);
         return result.then(data=>{
             if(data.insertId){
                 return new SuccessModel('新建成功')
@@ -50,7 +54,7 @@ const handleBlogRouter = (req,res)=>{
     if (method === "POST" && path === '/api/blog/update') {
         const result = updateBlog(id,postData);
         return result.then(data=>{
-            console.log("updateMsg",data)
+            // console.log("updateMsg",data)
             if (data.affectedRows>0){
                 if(data.changedRows>0){
                     return new SuccessModel("博客更新成功")
@@ -65,7 +69,8 @@ const handleBlogRouter = (req,res)=>{
 
     //删除一篇博客
     if (method === "POST" && path === '/api/blog/del') {
-        const result = delBlog(id)
+        const author = req.session.username
+        const result = delBlog(id,author)
         return result.then(data=>{
             // console.log(data)
             if (data.affectedRows){

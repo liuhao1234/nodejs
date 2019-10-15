@@ -18,11 +18,10 @@ const getDetail = (id)=>{
     });
 }
 
-const newBlog = (blogData)=>{
+const newBlog = (blogData,author)=>{
     let title = blogData.title||"未命名标题";
     let content = blogData.content||"作者未输入内容";
-    let createtime = blogData.createtime||new Date().getTime();
-    let author = blogData.author||"无名作者";
+    let createtime = new Date().getTime();
     let sql = `insert into blogs (title,content,createtime,author) values ('${title}','${content}',${createtime},'${author}')`
     return exec(sql);
 }
