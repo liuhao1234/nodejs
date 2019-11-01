@@ -20,8 +20,8 @@ const handleBlogRouter = (req,res)=>{
     //获取博客列表
     if(method === "GET" && path === '/api/blog/list'){
         const author = req.session.username;
+        console.log(author)
         const keyword = req.query.keyword||"";
-        // console.log("/api/blog/list",author,keyword)
         const result = getList(author,keyword);
 
         return result.then(listdata => {

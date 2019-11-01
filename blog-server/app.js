@@ -1,6 +1,7 @@
 const URL = require("url");
 const querystring = require("querystring");
 const { set, get } = require("./src/db/redis");
+const { access } =require("./src/utils/log");
 const loginCheck = require("./src/utils/loginCheck");
 const getPostData = require("./src/utils/getPostData");
 const getCookieExpires = require("./src/utils/getCookieExpires");
@@ -10,8 +11,11 @@ const handleUserRouter = require("./src/router/user");
 // 代码上线是上传代码重新启动服务
 
 const serverHandler = (req,res)=>{
+    // 记录日志
+    access(`${req.method}--${req.url}--${req.headers['user-agent']}--${new Date().getTime()}`);
     //设置返回格式
-    //res.setHeader("Access-Control-Allow-Origin", "*");
+    // res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
     res.setHeader('Content-type','application/json;charset=utf-8') //'text/plain'
     //处理url
     const url = URL.parse(req.url);

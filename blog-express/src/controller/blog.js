@@ -5,9 +5,10 @@ const getList = (author,keyword)=>{
         sql += `and author='${author}' `
     }
     if(keyword){
-        sql += `or title like '%${keyword}%' `
+        sql += `and title like '%${keyword}%' `
     }
     sql += `order by createtime desc;`
+    console.log(sql)
     return exec(sql);
 }
 
@@ -26,7 +27,8 @@ const newBlog = (blogData,author)=>{
     return exec(sql);
 }
 
-const updateBlog = (id,blogData)=>{
+const updateBlog = (blogData)=>{
+    const id = blogData.id;
     const title = blogData.title;
     const content = blogData.content;
     let sql = `update blogs set title='${title}',content='${content}' where id='${id}'`
