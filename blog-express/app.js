@@ -7,7 +7,6 @@ const fs = require('fs');
 const session = require('express-session')
 const connectRedis = require('connect-redis')
 
-
 const redisStore = connectRedis(session);
 const redisClient = require('./src/db/redis');
 
